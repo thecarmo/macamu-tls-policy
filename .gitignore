@@ -1,0 +1,9 @@
+# Signing material must stay outside this repository.
+*.private.pem
+*.private.der
+*.key
+*.seed
+*.p12
+*.pfx
+*.unsigned.json
+.DS_Store
