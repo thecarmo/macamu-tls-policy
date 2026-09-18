@@ -8,7 +8,21 @@ Não contém código do aplicativo, dados clínicos, credenciais ou chaves priva
 `policy.template.json` é um modelo para revisão. **Não é uma política assinada**
 e não deve ser renomeado para `policy.json`. A atualização remota permanece
 inativa no app até receber as duas chaves públicas e publicar a primeira política
-assinada. A versão inicial do app já contém as CAs GlobalSign R3 e RNP/GlobalSign R46.
+assinada. O código do [PR #93 do app](https://github.com/thecarmo/macamu/pull/93)
+contém as CAs GlobalSign R3 e RNP/GlobalSign R46.
+
+O modelo atual prepara a **versão 2** para o certificado de produção emitido em
+18/09/2026 pela RNP ICPEdu GR46 OV TLS CA 2025, válido até 05/04/2027. A cadeia
+foi validada para `transplante.virtual.ufc.br` usando somente as CAs já revisadas
+no app, e os certificados RNP e GlobalSign R46 servidos correspondem aos do modelo.
+A RNP passa a ser a referência ativa; as CAs anteriores são preservadas como
+legadas. O SPKI da chave do servidor permanece o mesmo, em modo `observe`.
+
+Essa versão tem atualização prevista para 03/10/2026 e expira em 17/11/2026.
+Essas são as datas da **política**, independentes da validade do certificado.
+Antes de assinar, revisar também as datas completas do JSON. Se a preparação
+precisar ser renovada, usar a ferramenta `prepare_tls_policy.dart` com uma versão
+superior à última publicada e à embarcada no app; nunca editar bytes já assinados.
 
 URL planejada de distribuição anônima:
 
