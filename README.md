@@ -3,14 +3,32 @@
 Este repositório público distribui **somente material público de confiança TLS**.
 Não contém código do aplicativo, dados clínicos, credenciais ou chaves privadas.
 
-## Estado inicial: aguardando chaves públicas e primeira assinatura
+## Política assinada de versão 2
 
-`policy.template.json` é um modelo para revisão. **Não é uma política assinada**
-e não deve ser renomeado para `policy.json`. A atualização remota permanece
-inativa no app até receber as duas chaves públicas e publicar a primeira política
-assinada. A versão inicial do app já contém as CAs GlobalSign R3 e RNP/GlobalSign R46.
+`policy.json` contém o envelope Ed25519 assinado pelo responsável com a chave
+`macamu-tls-2026a`. `public-keys.json` registra as duas chaves públicas de produção
+e reserva; a confiança do app continua definida pelas chaves compiladas no
+[PR #93](https://github.com/thecarmo/macamu/pull/93), sem baixá-las deste arquivo.
+Nenhuma chave privada participa da publicação.
 
-URL planejada de distribuição anônima:
+`policy.template.json` contém exatamente os bytes públicos assinados nesta
+versão, para facilitar a revisão. **Não é um envelope assinado** e não deve ser
+renomeado para `policy.json`.
+
+A **versão 2** cobre o certificado de produção emitido em
+18/09/2026 pela RNP ICPEdu GR46 OV TLS CA 2025, válido até 05/04/2027. A cadeia
+foi validada para `transplante.virtual.ufc.br` usando somente as CAs já revisadas
+no app, e os certificados RNP e GlobalSign R46 servidos correspondem aos do modelo.
+A RNP passa a ser a referência ativa; as CAs anteriores são preservadas como
+legadas. O SPKI da chave do servidor permanece o mesmo, em modo `observe`.
+
+Essa versão tem atualização prevista para 03/10/2026 e expira em 17/11/2026.
+Essas são as datas da **política**, independentes da validade do certificado.
+Antes de assinar, revisar também as datas completas do JSON. Se a preparação
+precisar ser renovada, usar a ferramenta `prepare_tls_policy.dart` com uma versão
+superior à última publicada e à embarcada no app; nunca editar bytes já assinados.
+
+O arquivo na raiz da branch `main` é distribuído anonimamente pela URL:
 
 ```
 https://raw.githubusercontent.com/thecarmo/macamu-tls-policy/main/policy.json
@@ -20,6 +38,13 @@ O app recebe um envelope com `policy` (base64 dos bytes JSON assinados) e
 `signatures` (assinaturas Ed25519). As chaves públicas aceitas são compiladas no
 app: editar uma chave neste repositório não altera o que os aparelhos aceitam.
 Não há token do GitHub no cliente.
+
+Verificação desta publicação: assinatura Ed25519 conferida com OpenSSL e com o
+verificador do app; o conteúdo assinado coincide byte a byte com o modelo.
+SHA-256 do envelope `policy.json`:
+`d461f076ac95a83a8ed94cbc1becd1ba860b04f07ed9502fb16f59e355becdf6`.
+O consumo remoto nos aparelhos exige instalar uma versão do app que inclua
+as chaves públicas e a ativação do bootstrap.
 
 ## Publicação
 
