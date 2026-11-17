@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "version": 2,
-  "issuedAt": "2026-09-18T19:19:57.274760Z",
-  "refreshAfter": "2026-10-03T19:19:57.274760Z",
+  "version": 3,
+  "issuedAt": "2026-11-17T20:34:24.948039Z",
+  "refreshAfter": "2026-12-02T20:34:24.948039Z",
   "servers": {
     "https://transplante.virtual.ufc.br/api/": {
       "hostnames": [
@@ -36,5 +36,5 @@
       "spkiMode": "observe"
     }
   },
-  "expiresAt": "2026-11-17T19:19:57.274760Z"
+  "expiresAt": "2027-01-16T20:34:24.948039Z"
 }
